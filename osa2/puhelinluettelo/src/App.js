@@ -54,17 +54,19 @@ const App = () => {
 
     const deletePersonInfo = (id) => {
         const person = persons.find(p => p.id === id)
-        
-        personsService
-            .deletePerson(person.id)
-            .then(response => {
-                setPersons(persons.filter(p => p.id !== id))
-            })
-        setMessageType('info')
-        setMessage(`Deleted ${person.name}`)
-        setTimeout(() => {
-            setMessage(null)
-        }, 5000)
+
+        if (window.confirm(`Delete ${person.name} ?`)) {
+            personsService
+                .deletePerson(person.id)
+                .then(response => {
+                    setPersons(persons.filter(p => p.id !== id))
+                })
+            setMessageType('info')
+            setMessage(`Deleted ${person.name}`)
+            setTimeout(() => {
+                setMessage(null)
+            }, 5000)
+        }
     }
 
     const updateNumber = (namej) => {
